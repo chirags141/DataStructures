@@ -1,49 +1,62 @@
 #include <iostream>
 using namespace std;
 
+struct node
+{
+    int data;
+    struct node *next;
+};
+
+node *get_node()
+{
+    node *new1;
+    new1 = (node *)malloc(sizeof(node));
+    return new1;
+}
+
+void free_node(node *new1)
+{
+    free(new1);
+}
+
 class Stack
 {
-    int n = 100;
-    int arr[100], top = -1;
+    node *start = NULL;
 
 public:
     void push(int item)
     {
-        if (top >= n - 1)
-            cout << "Stack Overflow" << endl;
-        else
-        {
-            top++;
-            arr[top] = item;
-        }
+        node *new1 = get_node();
+        new1->data = item;
+        new1->next = start;
+        start = new1;
     }
+
     void pop()
     {
-        if (top <= -1)
+        if (start == NULL)
             cout << "Stack Underflow" << endl;
         else
         {
-            int item = arr[top];
-            cout << "The popped element is " << arr[top] << endl;
-            top--;
+            node *temp;
+            temp = start;
+            cout << "The element popped out is: " << temp->data << endl;
+            start = start->next;
+            free_node(temp);
         }
-    }
-
-    int peek()
-    {
-        return arr[top];
     }
 
     void display()
     {
-        if (top <= -1)
+        if (start == NULL)
             cout << "Stack is empty" << endl;
         else
         {
-            cout << "Stack is: ";
-            for(int i = top;i>=0;i--)
+            node *temp = start;
+            while (temp != NULL)
             {
-                cout << arr[i] << " ";
+                cout << temp->data << " ";
+                temp = temp->next;
             }
             cout << endl;
         }
@@ -78,7 +91,7 @@ int main()
         }
         case 3:
         {
-            obj.display();
+            obj.display(); 
             break;
         }
         case 4:
