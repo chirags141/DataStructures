@@ -3,7 +3,7 @@ using namespace std;
 
 class Queue
 {
-    int arr[10];
+    int arr[10], n = 10;
     int front = -1, rear = -1;
 
 public:
@@ -17,7 +17,7 @@ public:
 
 int Queue ::isFull()
 {
-    if (rear == 9)
+    if (rear == n - 1)
     {
         cout << "Queue is full" << endl;
         return 1;
@@ -82,6 +82,17 @@ void Queue ::display()
             cout << arr[i] << " ";
         cout << endl;
     }
+}
+
+int Queue ::front_element()
+{
+    if (isEmpty())
+    {
+        cout << "Empty Queue" << endl;
+        return -1;
+    }
+    else
+        return arr[front];
 }
 
 int main()
